@@ -1,0 +1,102 @@
+﻿@model EcommerceWebsite.ViewModels.HangHoaVM
+
+@{
+    Layout = "_AdminLayout";
+}
+
+<div class="content-wrapper-scroll">
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-sm-12 col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Product Information</div>
+                    </div>
+                    <div class="card-body">
+                        <form asp-action="AddProduct" method="post" enctype="multipart/form-data">
+                            <div class="row">
+                                <div class="col-sm-12 col-12">
+                                    <div class="card-border">
+                                        <div class="card-border-title">General Information</div>
+                                        <div class="card-border-body">
+                                            <div class="row">
+                                                <div class="col-sm-6 col-12">
+                                                    <div class="mb-3">
+                                                        <label asp-for="TenHh" class="form-label"></label>
+                                                        <span class="text-red">*</span>
+                                                        <input asp-for="TenHh" class="form-control" placeholder="Enter Product Name">
+                                                        <span asp-validation-for="TenHh" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6 col-12">
+                                                    <div class="mb-3">
+                                                        <label asp-for="MaLoai" class="form-label">Product Category <span class="text-red">*</span></label>
+                                                        <select asp-for="MaLoai" class="form-control">
+                                                            <option value="" disabled selected>Select Category</option>
+                                                            @foreach (var category in ViewData["Categories"] as List<EcommerceWebsite.ViewModels.MenuLoaiVM>)
+                                                            {
+                                                                <option value="@category.MaLoai">@category.TenLoai</option>
+                                                            }
+                                                        </select>
+                                                        <span asp-validation-for="MaLoai" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6 col-12">
+                                                    <div class="mb-3">
+                                                        <label asp-for="DonGia" class="form-label"></label>
+                                                        <span class="text-red">*</span>
+                                                        <input asp-for="DonGia" class="form-control" placeholder="Enter Product Price">
+                                                        <span asp-validation-for="DonGia" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6 col-12">
+                                                    <div class="mb-3">
+                                                        <label asp-for="SoLuong" class="form-label"></label>
+                                                        <input asp-for="SoLuong" class="form-control" placeholder="Set Product Amount">
+                                                        <span asp-validation-for="SoLuong" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12 col-12">
+                                                    <div class="mb-3">
+                                                        <label asp-for="MoTa" class="form-label"></label>
+                                                        <span class="text-red">*</span>
+                                                        <textarea asp-for="MoTa" rows="4" class="form-control" placeholder="Enter Product Description"></textarea>
+                                                        <span asp-validation-for="MoTa" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-12">
+                                    <div class="card-border">
+                                        <div class="card-border-title">Product Images</div>
+                                        <div class="card-border-body">
+                                            <div id="dropzone" class="dropzone-dark">
+                                                    <div class="dz-message needsclick">
+                                                        Drop files here or click to upload.
+                                                    <label class="form-label my-3" for="Hinh">Hình<sup>*</sup></label>
+                                                    <input type="file" name="Hinh" class="form-control" />
+                                                        <br>
+                                                    </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-12">
+                                    <div class="custom-btn-group flex-end">
+                                        <button type="button" class="btn btn-light">Cancel</button>
+                                        <button type="submit" class="btn btn-success">Save Changes</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="hidden" asp-for="MaHh" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Row end -->
+    </div>
+    <!-- Content wrapper end -->
+</div>

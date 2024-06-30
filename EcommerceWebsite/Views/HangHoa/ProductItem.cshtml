@@ -1,0 +1,43 @@
+﻿@model IEnumerable<EcommerceWebsite.ViewModels.HangHoaVM>
+
+@functions {
+    public string ShortenDescription(string description, int maxLength)
+    {
+        if (description.Length > maxLength)
+        {
+            return description.Substring(0, maxLength) + "...";
+        }
+        return description;
+    }
+}
+
+<style>
+    .product-img img {
+        height: 200px; /* Set your desired fixed height */
+        object-fit: cover; /* Ensures the image maintains its aspect ratio and covers the area */
+    }
+</style>
+
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    @foreach (var item in Model)
+    {
+        <div class="col d-flex align-items-stretch">
+            <div class="card product-item flex-fill">
+                <div class="product-img">
+                    <a asp-action="Detail" asp-controller="HangHoa" asp-route-id="@item.MaHh">
+                        <img src="~/Hinh/HangHoa/@item.Hinh" class="img-fluid w-100 card-img-top" alt="@item.TenHh">
+                    </a>
+                </div>
+                <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">@item.TenLoai</div>
+                <div class="card-body">
+                    <a asp-action="Detail" asp-controller="HangHoa" asp-route-id="@item.MaHh"><h4 class="card-title">@item.TenHh</h4></a>
+                    <p class="card-text">@ShortenDescription(item.MoTa, 100)</p> <!-- Giới hạn độ dài mô tả là 100 ký tự -->
+                    <div class="d-flex justify-content-between align-items-center">
+                        <p class="text-dark fs-5 fw-bold mb-0">$@item.DonGia</p>
+                        <a asp-action="AddToCart" asp-controller="Cart" asp-route-id="@item.MaHh" class="btn btn-outline-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Đưa vào giỏ</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

@@ -1,0 +1,83 @@
+﻿@model EcommerceWebsite.ViewModels.HangHoaVM
+@{
+	ViewData["Title"] = "Detail";
+}
+
+<!-- Single Page Header start -->
+<div class="container-fluid page-header py-5">
+	<h1 class="text-center text-white display-6">Shop Detail</h1>
+	<ol class="breadcrumb justify-content-center mb-0">
+		<li class="breadcrumb-item"><a href="#">Home</a></li>
+		<li class="breadcrumb-item"><a href="#">Hàng hóa</a></li>
+		<li class="breadcrumb-item active text-white">@Model.TenHh</li>
+	</ol>
+</div>
+<!-- Single Page Header End -->
+<!-- Single Product Start -->
+<div class="container-fluid py-5 mt-5">
+	<div class="container py-5">
+		<div class="row g-4 mb-5">
+			<div class="col-lg-8 col-xl-9">
+				<div class="row g-4">
+					<div class="col-lg-6">
+						<div class="border rounded">
+							<a asp-action="Detail" asp-route-id="@Model.MaHh">
+								<img src="~/Hinh/HangHoa/@Model.Hinh" class="img-fluid rounded" alt="@Model.TenHh">
+							</a>
+						</div>
+					</div>
+					<div class="col-lg-6">
+						<h4 class="fw-bold mb-3">@Model.TenHh</h4>
+						<p class="mb-3">Category: @Model.TenLoai</p>
+						<h5 class="fw-bold mb-3">$ @Model.DonGia</h5>
+						<h5 class="fw-bold mb-3">SL: @Model.SoLuong</h5>
+						<div class="d-flex mb-4">
+							<i class="fa fa-star text-secondary"></i>
+							<i class="fa fa-star text-secondary"></i>
+							<i class="fa fa-star text-secondary"></i>
+							<i class="fa fa-star text-secondary"></i>
+							<i class="fa fa-star"></i>
+						</div>
+						<p class="mb-4">@Model.MoTa</p>
+						<form asp-action="AddToCart" asp-controller="Cart" asp-route-id="@Model.MaHh">
+							<div class="input-group quantity mb-5" style="width: 100px;">
+								<div class="input-group-btn">
+									<button class="btn btn-sm btn-minus rounded-circle bg-light border" type="button">
+										<i class="fa fa-minus"></i>
+									</button>
+								</div>
+								<input type="text" class="form-control form-control-sm text-center border-0" value="1" name="quantity">
+								<div class="input-group-btn">
+									<button class="btn btn-sm btn-plus rounded-circle bg-light border" type="button">
+										<i class="fa fa-plus"></i>
+									</button>
+								</div>
+							</div>
+							<button class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Mua hàng</button>
+						</form>
+					</div>
+					<div class="col-lg-12">
+						<nav>
+							<div class="nav nav-tabs mb-3">
+								<button class="nav-link active border-white border-bottom-0" type="button" role="tab"
+										id="nav-about-tab" data-bs-toggle="tab" data-bs-target="#nav-about"
+										aria-controls="nav-about" aria-selected="true">
+									Thông tin hàng hóa
+								</button>
+							</div>
+						</nav>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-4 col-xl-3">
+				<div class="row g-4 fruite">
+					<div class="col-lg-12">
+						@await Html.PartialAsync("_TimKiemPanel")
+						@await Component.InvokeAsync("MenuLoai")
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Single Product End -->

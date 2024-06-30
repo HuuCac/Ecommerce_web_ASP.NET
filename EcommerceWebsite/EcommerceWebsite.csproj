@@ -1,0 +1,58 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\assets\.DS_Store" />
+    <None Include="wwwroot\assets\css\.DS_Store" />
+    <None Include="wwwroot\assets\css\bootstrap\.DS_Store" />
+    <None Include="wwwroot\assets\css\bootstrap\tests\.DS_Store" />
+    <None Include="wwwroot\assets\fonts\.DS_Store" />
+    <None Include="wwwroot\assets\fonts\bootstrap\.DS_Store" />
+    <None Include="wwwroot\assets\images\.DS_Store" />
+    <None Include="wwwroot\assets\images\cards\.DS_Store" />
+    <None Include="wwwroot\assets\images\flags\.DS_Store" />
+    <None Include="wwwroot\assets\images\food\.DS_Store" />
+    <None Include="wwwroot\assets\js\.DS_Store" />
+    <None Include="wwwroot\assets\vendor\.DS_Store" />
+    <None Include="wwwroot\assets\vendor\apex\.DS_Store" />
+    <None Include="wwwroot\assets\vendor\apex\custom\.DS_Store" />
+    <None Include="wwwroot\assets\vendor\apex\custom\profile\.DS_Store" />
+    <None Include="wwwroot\assets\vendor\apex\custom\repotrs\.DS_Store" />
+    <None Include="wwwroot\assets\vendor\apex\custom\sales\.DS_Store" />
+    <None Include="wwwroot\assets\vendor\apex\examples\.DS_Store" />
+    <None Include="wwwroot\assets\vendor\apex\examples\area\.DS_Store" />
+    <None Include="wwwroot\assets\vendor\apex\examples\candlestick\.DS_Store" />
+    <None Include="wwwroot\assets\vendor\apex\examples\column\.DS_Store" />
+    <None Include="wwwroot\assets\vendor\apex\examples\pie\.DS_Store" />
+    <None Include="wwwroot\assets\vendor\bs-select\.DS_Store" />
+    <None Include="wwwroot\assets\vendor\calendar\.DS_Store" />
+    <None Include="wwwroot\assets\vendor\calendar\css\.DS_Store" />
+    <None Include="wwwroot\assets\vendor\circliful\.DS_Store" />
+    <None Include="wwwroot\assets\vendor\datatables\.DS_Store" />
+    <None Include="wwwroot\assets\vendor\datatables\custom\.DS_Store" />
+    <None Include="wwwroot\assets\vendor\jvectormap\.DS_Store" />
+    <None Include="wwwroot\assets\vendor\jvectormap\custom\.DS_Store" />
+    <None Include="wwwroot\assets\vendor\morris\.DS_Store" />
+    <None Include="wwwroot\assets\vendor\morris\custom\.DS_Store" />
+    <None Include="wwwroot\assets\vendor\overlay-scroll\.DS_Store" />
+    <None Include="wwwroot\assets\vendor\particles\.DS_Store" />
+    <None Include="wwwroot\assets\vendor\summernote\.DS_Store" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.6">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.2" />
+  </ItemGroup>
+
+</Project>

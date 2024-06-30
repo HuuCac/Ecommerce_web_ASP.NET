@@ -1,0 +1,54 @@
+﻿@model EcommerceWebsite.ViewModels.PaginatedList<EcommerceWebsite.ViewModels.HangHoaVM>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "_DanhSachHangHoa";
+}
+
+<!-- Single Page Header start -->
+@section BreadCum {
+    <div class="container-fluid page-header py-5">
+        <h1 class="text-center text-white display-6">Shop</h1>
+        <ol class="breadcrumb justify-content-center mb-0">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="#">Pages</a></li>
+            <li class="breadcrumb-item active text-white">Shop</li>
+        </ol>
+    </div>
+}
+<!-- Single Page Header End -->
+@await Html.PartialAsync("ProductItem", Model.Items)
+
+<div class="col-12">
+    <div class="pagination d-flex justify-content-center mt-5">
+        @if (Model.HasPreviousPage)
+        {
+            <a href="@Url.Action("Index", new { currentPage = Model.CurrentPage - 1 })" class="rounded">&laquo;</a>
+        }
+        else
+        {
+            <a class="rounded disabled">&laquo;</a>
+        }
+
+        @for (var i = 1; i <= Model.TotalPages; i++)
+        {
+            if (i == Model.CurrentPage)
+            {
+                <a class="active rounded">@i</a>
+            }
+            else
+            {
+                <a href="@Url.Action("Index", new { currentPage = i })" class="rounded">@i</a>
+            }
+        }
+
+        @if (Model.HasNextPage)
+        {
+            <a href="@Url.Action("Index", new { currentPage = Model.CurrentPage + 1 })" class="rounded">&raquo;</a>
+        }
+        else
+        {
+            <a class="rounded disabled">&raquo;</a>
+        }
+    </div>
+</div>

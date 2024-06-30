@@ -1,0 +1,76 @@
+﻿@model EcommerceWebsite.ViewModels.KhachHangVM
+
+@{
+    ViewData["Title"] = "Profile";
+}
+ <div class="container mt-5">
+        <div class="profile-container p-4 bg-light rounded shadow-sm">
+            <div class="text-center mb-4">
+                <h2>Profile</h2>
+                <a class="btn btn-primary" asp-controller="KhachHang" asp-action="UpdateKH" asp-route-id="@Model.MaKh">Thay đổi thông tin</a>
+            </div>
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="text-center mb-3">
+                        <img src="~/Hinh/KhachHang/@Model.Hinh" class="rounded-circle img-thumbnail img-fluid" alt="Customer Image" style="width: 150px; height: 150px; object-fit: cover;">
+                    </div>
+                    <h3 class="card-title text-center">@Model.HoTen</h3>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><strong>Email:</strong> @Model.Email</p>
+                            <p><strong>Address:</strong> @Model.DiaChi</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong>Phone:</strong> @Model.DienThoai</p>
+                            <p><strong>Birthday:</strong> @Model.NgaySinh.ToShortDateString()</p>
+                            <p><strong>Gender:</strong> @(Model.GioiTinh ? "Male" : "Female")</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Your Orders</h3>
+            <table class="table table-striped table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Order Date</th>
+                        <th>Status</th>
+                        <th>Product ID</th>
+                        <th>Product Name</th>
+                        <th>Quantity</th>
+                        <th>Unit Price</th>
+                        <th>Total</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @foreach (var order in Model.HoaDons)
+                {
+                    @foreach (var item in order.ChiTietHoaDons)
+                    {
+                                    <tr>
+                                        <td>@order.NgayDat.ToString("dd/MM/yyyy")</td>
+                                        <td>@order.TenTrangThai</td>
+                                        <td>@item.MaSanPham</td>
+                                        <td>@item.TenSanPham</td>
+                                        <td>@item.SoLuong</td>
+                                        <td>@item.DonGia.ToString("C")</td>
+                                        <td>@item.TongTien.ToString("C")</td>
+                                        <td>
+                                @if (order.MaTrangThai != -1 && order.MaTrangThai != 3)
+                                {
+                                                    <form asp-action="CancelOrder" asp-controller="KhachHang" method="post" class="d-inline">
+                                                        <input type="hidden" name="orderId" value="@order.MaHoaDon" />
+                                                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to cancel this order?');">
+                                                            Cancel Order
+                                                        </button>
+                                                    </form>
+                                }
+                                        </td>
+                                    </tr>
+                    }
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>

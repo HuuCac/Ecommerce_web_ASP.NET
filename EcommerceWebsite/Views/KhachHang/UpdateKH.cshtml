@@ -1,0 +1,46 @@
+﻿@model EcommerceWebsite.ViewModels.KhachHangVM
+
+@{
+    ViewData["Title"] = "Update Customer";
+}
+
+
+<h2>Update Customer</h2>
+
+<form asp-action="UpdateKH" method="post" enctype="multipart/form-data">
+    <input type="hidden" asp-for="MaKh" /> <!-- Hidden field to store ID -->
+
+    <div class="form-group">
+        <label asp-for="HoTen"></label>
+        <input asp-for="HoTen" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="DiaChi"></label>
+        <input asp-for="DiaChi" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="DienThoai"></label>
+        <input asp-for="DienThoai" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="NgaySinh"></label>
+        <input asp-for="NgaySinh" class="form-control" type="date" />
+    </div>
+    <div class="form-group">
+        <label asp-for="GioiTinh"></label>
+        <select asp-for="GioiTinh" class="form-control">
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label asp-for="Email"></label>
+        <input asp-for="Email" class="form-control" type="email" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Hinh"></label>
+        <input type="file" name="Hinh" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>

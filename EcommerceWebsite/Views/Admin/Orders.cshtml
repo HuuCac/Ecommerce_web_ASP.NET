@@ -1,0 +1,219 @@
+﻿@model EcommerceWebsite.ViewModels.PaginatedList<EcommerceWebsite.ViewModels.HoaDonVM>
+
+@{
+    Layout = "_AdminLayout";
+}
+
+<div class="row">
+    <div class="col-sm-12 col-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">Orders</div>
+            </div>
+            <div class="card-body">
+
+                <div class="table-responsive">
+                    <table class="table v-middle m-0">
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Order Date</th>
+                                <th>Status</th>
+                                <th>Total Amount</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var order in Model.Items)
+                            {
+                                <tr>
+                                    <td>@order.MaHoaDon</td>
+                                    <td>@order.NgayDat.ToString("dd/MM/yyyy")</td>
+                                    <td class="text-wrap">
+                                        @switch (order.TenTrangThai)
+                                        {
+                                            case "Khách hàng hủy đơn hàng":
+                                                <span class="badge bg-danger">@order.TenTrangThai</span>
+                                                break;
+                                            case "Mới đặt hàng":
+                                                <span class="badge bg-primary">@order.TenTrangThai</span>
+                                                break;
+                                            case "Đã thanh toán":
+                                                <span class="badge bg-success">@order.TenTrangThai</span>
+                                                break;
+                                            case "Chờ giao hàng":
+                                                <span class="badge bg-warning text-dark">@order.TenTrangThai</span>
+                                                break;
+                                            case "Đã giao hàng":
+                                                <span class="badge bg-info">@order.TenTrangThai</span>
+                                                break;
+                                            default:
+                                                @order.TenTrangThai
+                                                break;
+                                        }
+                                    </td>
+                                    <td>@order.ChiTietHoaDons.Sum(ct => ct.TongTien).ToString("C")</td>
+                                    <td>
+                                        <div class="actions">
+                                            <button class="btn btn-link p-0" data-bs-toggle="collapse" data-bs-target="#orderDetails-@order.MaHoaDon" aria-expanded="false" aria-controls="orderDetails-@order.MaHoaDon">
+                                                <i class="bi bi-eye"></i>
+                                            </button>
+                                            <a asp-action="EditOrder" asp-controller="Admin" asp-route-id="@order.MaHoaDon" class="btn btn-link p-0">
+                                                <i class="bi bi-pencil"></i>
+                                            </a>
+                                            <form method="post" asp-action="DeleteOrder" asp-controller="Admin" class="delete-form">
+                                                <input type="hidden" name="orderId" value="@order.MaHoaDon" />
+                                                <button type="submit" class="btn btn-link p-0">
+                                                    <i class="bi bi-trash" style="color: red;"></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="collapse" id="orderDetails-@order.MaHoaDon">
+                                    <td colspan="5">
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Product ID</th>
+                                                        <th>Product Name</th>
+                                                        <th>Quantity</th>
+                                                        <th>Unit Price</th>
+                                                        <th>Total</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var detail in order.ChiTietHoaDons)
+                                                    {
+                                                        <tr>
+                                                            <td>@detail.MaSanPham</td>
+                                                            <td>@detail.TenSanPham</td>
+                                                            <td>@detail.SoLuong</td>
+                                                            <td>@detail.DonGia.ToString("C")</td>
+                                                            <td>@detail.TongTien.ToString("C")</td>
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Bootstrap Pagination Controls -->
+                <nav aria-label="Page navigation" class="mt-4">
+                    <ul class="pagination justify-content-center">
+                        @if (Model.HasPreviousPage)
+                        {
+                            <li class="page-item">
+                                <a class="page-link" href="@Url.Action("GetOrders", new { currentPage = Model.CurrentPage - 1 })" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                        }
+
+                        @if (Model.TotalPages <= 10)
+                        {
+                            // Display all pages if total pages are less than or equal to 10
+                            for (var i = 1; i <= Model.TotalPages; i++)
+                            {
+                                if (i == Model.CurrentPage)
+                                {
+                                    <li class="page-item active"><a class="page-link" href="#">@i</a></li>
+                                }
+                                else
+                                {
+                                    <li class="page-item"><a class="page-link" href="@Url.Action("GetOrders", new { currentPage = i })">@i</a></li>
+                                }
+                            }
+                        }
+                        else
+                        {
+                            // Display first two pages
+                            for (var i = 1; i <= 2; i++)
+                            {
+                                if (i == Model.CurrentPage)
+                                {
+                                    <li class="page-item active"><a class="page-link" href="#">@i</a></li>
+                                }
+                                else
+                                {
+                                    <li class="page-item"><a class="page-link" href="@Url.Action("GetOrders", new { currentPage = i })">@i</a></li>
+                                }
+                            }
+
+                            // Display ellipsis if current page is far from the beginning
+                            if (Model.CurrentPage > 4)
+                            {
+                                <li class="page-item disabled"><a class="page-link" href="#">..</a></li>
+                            }
+
+                            // Display pages around the current page
+                            for (var i = Math.Max(3, Model.CurrentPage - 1); i <= Math.Min(Model.TotalPages - 2, Model.CurrentPage + 1); i++)
+                            {
+                                if (i == Model.CurrentPage)
+                                {
+                                    <li class="page-item active"><a class="page-link" href="#">@i</a></li>
+                                }
+                                else
+                                {
+                                    <li class="page-item"><a class="page-link" href="@Url.Action("GetOrders", new { currentPage = i })">@i</a></li>
+                                }
+                            }
+
+                            // Display ellipsis if current page is far from the end
+                            if (Model.CurrentPage < Model.TotalPages - 3)
+                            {
+                                <li class="page-item disabled"><a class="page-link" href="#">..</a></li>
+                            }
+
+                            // Display last two pages
+                            for (var i = Model.TotalPages - 1; i <= Model.TotalPages; i++)
+                            {
+                                if (i == Model.CurrentPage)
+                                {
+                                    <li class="page-item active"><a class="page-link" href="#">@i</a></li>
+                                }
+                                else
+                                {
+                                    <li class="page-item"><a class="page-link" href="@Url.Action("GetOrders", new { currentPage = i })">@i</a></li>
+                                }
+                            }
+                        }
+
+                        @if (Model.HasNextPage)
+                        {
+                            <li class="page-item">
+                                <a class="page-link" href="@Url.Action("GetOrders", new { currentPage = Model.CurrentPage + 1 })" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </nav>
+
+            </div>
+        </div>
+    </div>
+</div>
+

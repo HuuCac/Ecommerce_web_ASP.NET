@@ -1,0 +1,50 @@
+﻿@model EcommerceWebsite.ViewModels.HangHoaVM
+
+@{
+    ViewData["Title"] = "Edit Product";
+    Layout = "_AdminLayout";
+}
+
+<h2>Edit Product</h2>
+
+<form asp-action="EditProduct" method="post">
+    <input type="hidden" asp-for="MaHh" /> <!-- Hidden field to store product ID -->
+
+    <div class="form-group">
+        <label asp-for="TenHh"></label>
+        <input asp-for="TenHh" class="form-control" />
+        <span asp-validation-for="TenHh" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="DonGia"></label>
+        <input asp-for="DonGia" class="form-control" />
+        <span asp-validation-for="DonGia" class="text-danger"></span>
+    </div>
+    
+    <div class="form-group">
+        <label asp-for="MoTaDonVi"></label>
+        <textarea asp-for="MoTaDonVi" class="form-control"></textarea>
+        <span asp-validation-for="MoTaDonVi" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="MoTa"></label>
+        <textarea asp-for="MoTa" class="form-control"></textarea>
+        <span asp-validation-for="MoTa" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="SoLuong"></label>
+        <input asp-for="SoLuong" class="form-control" />
+        <span asp-validation-for="SoLuong" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="MaLoai"></label>
+        <select asp-for="MaLoai" class="form-control" asp-items="@(new SelectList(ViewBag.Categories, "MaLoai", "TenLoai", Model.MaLoai))">
+        </select>
+        <span asp-validation-for="MaLoai" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Hinh"></label>
+        <input type="file" name="Hinh" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>
