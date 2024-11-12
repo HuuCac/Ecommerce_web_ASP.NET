@@ -27,7 +27,7 @@ This project is an e-commerce web application built with **ASP.NET**. It provide
 ## Screenshots
 
 ### Home Page
-![Home Page](./screenshots/home-page(2).png)
+![Home Page](./screenshots/home-page.png)
 
 ### Product Page
 ![Product Page](./screenshots/product-page.png)
